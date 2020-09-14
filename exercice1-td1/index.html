@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <script src="../assets/js/vue@2.6.12.js"></script>
 </head>
 <body style="font-family:sans-serif;font-size:24px;">
 <!-- App Vue.js -->
 <div id="app">
     <!-- Welcome message -->
-    <h1><span v-if="lang == 'english'">{{ theMessage_en }}</span><span v-if="lang == 'french'">{{ theMessage_fr }}</span><span v-else-if="lang == 'spanish'">{{ theMessage_es }}</span>, {{ prenom }}</h1>
-    <p><span v-if="lang == 'english'">Language: </span><span v-if="lang == 'french'">Langue: </span><span v-if="lang == 'spanish'">Lengua: </span>{{ lang }}</p>
+    <h1><span v-if="lang == 'english'">{{ theMessage_en }}</span><span
+            v-if="lang == 'french'">{{ theMessage_fr }}</span><span
+            v-else-if="lang == 'spanish'">{{ theMessage_es }}</span>, {{ prenom }}</h1>
+    <p><span v-if="lang == 'english'">Language: </span><span v-if="lang == 'french'">Langue: </span><span
+            v-if="lang == 'spanish'">Lengua: </span>{{ lang }}</p>
     <!-- Lang selector -->
     <input v-model="prenom" type="text"><br>
     <select v-model="lang" name="lang" id="lang">
@@ -17,6 +20,12 @@
         <option value="french">French</option>
         <option value="spanish">Spanish</option>
     </select>
+    <br>
+    <hr>
+    <!-- Voting system -->
+    <button @click="augmente()">Vote !</button>
+    <br>
+    <p>Voix: {{ nbVotes }}</p>
     <hr>
 </div>
 
@@ -29,7 +38,14 @@
             theMessage_en: "Welcome",
             theMessage_fr: "Bonjour",
             theMessage_es: "Bienvenido",
-            prenom: 'User'
+            prenom: 'User',
+            nbVotes: 0
+        },
+        methods: {
+            /* Function "Augmente" - +1 on nbVotes var */
+            augmente: function () {
+                this.nbVotes += 1
+            }
         }
     });
 </script>
