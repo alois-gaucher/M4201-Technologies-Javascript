@@ -790,19 +790,19 @@
         methods: {
             /* Function "Augmente" => +1 on nbVotes var */
             augmenteNbVotesM: function () {
-            this.nbVotes_mbappe ++,
-                    console.log('+1 pour Mbappe'),
-                    console.log(this.nbVotes_total)
+                this.nbVotes_mbappe++,
+                    console.log('Votes mbappe : ' + this.nbVotes_mbappe),
+                    console.log('Total : ' + this.nbVotes_total)
             },
             augmenteNbVotesF: function () {
-                this.nbVotes_fekir ++,
-                    console.log('+1 pour Fekir'),
-                    console.log(this.nbVotes_total)
+                this.nbVotes_fekir++,
+                    console.log('Votes fekir : ' + this.nbVotes_fekir),
+                    console.log('Total : ' + this.nbVotes_total)
             },
             augmenteNbVotesT: function () {
-                this.nbVotes_thauvin ++,
-                    console.log('+1 pour Thauvin'),
-                    console.log(this.nbVotes_total)
+                this.nbVotes_thauvin++,
+                    console.log('Votes thauvin : ' + this.nbVotes_thauvin),
+                    console.log('Total : ' + this.nbVotes_total)
             },
         },
         computed: {
@@ -815,9 +815,9 @@
             pourcent_thauvin: function () {
                 return (100 * this.nbVotes_thauvin / this.nbVotes_total().toFixed(2))
             },
-            nbVotes_total: function() {
+            nbVotes_total: function () {
                 return this.nbVotes_total = (this.nbVotes_mbappe + this.nbVotes_fekir + this.nbVotes_thauvin)
-            },
+            }
         },
     });
 </script>
