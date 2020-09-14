@@ -7,8 +7,13 @@
 <body style="font-family:sans-serif;font-size:24px;">
 <!-- App Vue.js -->
 <div id="app">
-    <h1>{{ theMessage }}, {{ prenom }}</h1>
+    <h1><span v-if="lang == 'english'">{{ theMessage_en }}</span><span v-if="lang == 'french'">{{ theMessage_fr }}</span>, {{ prenom }}</h1>
+    <p><span v-if="lang == 'english'">Language: </span><span v-if="lang == 'french'">Langue: </span>{{ lang }}</p>
     <input v-model="prenom" type="text"><br>
+    <select v-model="lang" name="lang" id="lang">
+        <option value="english">English</option>
+        <option value="french">French</option>
+    </select>
     <hr>
 </div>
 
@@ -17,7 +22,9 @@
     var vue1 = new Vue({
         el: "#app",
         data: {
-            theMessage: "Welcome",
+            lang: "english",
+            theMessage_en: "Welcome",
+            theMessage_fr: "Bonjour",
             prenom: 'User'
         }
     });
