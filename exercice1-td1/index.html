@@ -7,12 +7,15 @@
 <body style="font-family:sans-serif;font-size:24px;">
 <!-- App Vue.js -->
 <div id="app">
-    <h1><span v-if="lang == 'english'">{{ theMessage_en }}</span><span v-if="lang == 'french'">{{ theMessage_fr }}</span>, {{ prenom }}</h1>
-    <p><span v-if="lang == 'english'">Language: </span><span v-if="lang == 'french'">Langue: </span>{{ lang }}</p>
+    <!-- Welcome message -->
+    <h1><span v-if="lang == 'english'">{{ theMessage_en }}</span><span v-if="lang == 'french'">{{ theMessage_fr }}</span><span v-else-if="lang == 'spanish'">{{ theMessage_es }}</span>, {{ prenom }}</h1>
+    <p><span v-if="lang == 'english'">Language: </span><span v-if="lang == 'french'">Langue: </span><span v-if="lang == 'spanish'">Lengua: </span>{{ lang }}</p>
+    <!-- Lang selector -->
     <input v-model="prenom" type="text"><br>
     <select v-model="lang" name="lang" id="lang">
         <option value="english">English</option>
         <option value="french">French</option>
+        <option value="spanish">Spanish</option>
     </select>
     <hr>
 </div>
@@ -25,6 +28,7 @@
             lang: "english",
             theMessage_en: "Welcome",
             theMessage_fr: "Bonjour",
+            theMessage_es: "Bienvenido",
             prenom: 'User'
         }
     });
