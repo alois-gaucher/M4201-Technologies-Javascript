@@ -5,11 +5,14 @@
     <script src="../assets/js/vue@2.6.12.js"></script>
 </head>
 <body style="font-family:sans-serif;font-size:24px;">
+<!-- App Vue.js -->
 <div id="app">
     <h1>{{ theMessage }}, {{ prenom }}</h1>
     <input v-model="prenom" type="text"><br>
     <hr>
 </div>
+
+<!-- Code Vue.js -->
 <script>
     var vue1 = new Vue({
         el: "#app",
