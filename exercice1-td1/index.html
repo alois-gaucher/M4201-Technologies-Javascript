@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="utf-8" />
-        <script src="../assets/js/vue@2.6.12.js"></script>
-    </head>
-    <body style="font-family:sans-serif;font-size:24px;">
-      <div id="app">
-        <h1>{{ theMessage }}</h1>
-      </div>
-      <script>
-          var vue1 = new Vue({
-              el: "#app",
-              data: {
-                theMessage: "Welcome on my site!"
-              }
-          });
-      </script>
-    </body>
+<head>
+    <meta charset="utf-8" />
+    <script src="../assets/js/vue@2.6.12.js"></script>
+</head>
+<body style="font-family:sans-serif;font-size:24px;">
+<div id="app">
+    <h1>{{ theMessage }}, {{ prenom }}</h1>
+    <input v-model="prenom" type="text"><br>
+    <hr>
+</div>
+<script>
+    var vue1 = new Vue({
+        el: "#app",
+        data: {
+            theMessage: "Welcome",
+            prenom: 'User'
+        }
+    });
+</script>
+</body>
 </html>
