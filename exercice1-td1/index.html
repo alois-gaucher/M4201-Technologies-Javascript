@@ -44,7 +44,7 @@
 
 <!-- Code Vue.js -->
 <script>
-    var vue1 = new Vue({
+    new Vue({
         el: "#app",
         data: {
             lang: "english",
@@ -52,7 +52,6 @@
             theMessage_fr: "Bonjour",
             theMessage_es: "Bienvenido",
             prenom: 'User',
-            nbVotes_total: 0,
             nbVotes_mbappe: 0,
             nbVotes_fekir: 0,
             nbVotes_thauvin: 0,
@@ -790,33 +789,36 @@
         methods: {
             /* Function "Augmente" => +1 on nbVotes var */
             augmenteNbVotesM: function () {
-                this.nbVotes_mbappe++,
-                    console.log('Votes mbappe : ' + this.nbVotes_mbappe),
+                this.nbVotes_mbappe++
+                    console.log('Votes mbappe : ' + this.nbVotes_mbappe)
                     console.log('Total : ' + this.nbVotes_total)
+                    console.log('% Mbappe : ' + this.pourcent_mbappe)
             },
             augmenteNbVotesF: function () {
-                this.nbVotes_fekir++,
-                    console.log('Votes fekir : ' + this.nbVotes_fekir),
+                this.nbVotes_fekir++
+                    console.log('Votes fekir : ' + this.nbVotes_fekir)
                     console.log('Total : ' + this.nbVotes_total)
+                console.log('% Fekir : ' + this.pourcent_fekir)
             },
             augmenteNbVotesT: function () {
-                this.nbVotes_thauvin++,
-                    console.log('Votes thauvin : ' + this.nbVotes_thauvin),
+                this.nbVotes_thauvin++
+                    console.log('Votes thauvin : ' + this.nbVotes_thauvin)
                     console.log('Total : ' + this.nbVotes_total)
+                console.log('% Thauvin : ' + this.pourcent_thauvin)
             },
         },
         computed: {
-            pourcent_mbappe: function () {
-                return (100 * this.nbVotes_mbappe / this.nbVotes_total().toFixed(2))
-            },
-            pourcent_fekir: function () {
-                return (100 * this.nbVotes_fekir / this.nbVotes_total().toFixed(2))
-            },
-            pourcent_thauvin: function () {
-                return (100 * this.nbVotes_thauvin / this.nbVotes_total().toFixed(2))
-            },
             nbVotes_total: function () {
                 return this.nbVotes_total = (this.nbVotes_mbappe + this.nbVotes_fekir + this.nbVotes_thauvin)
+            },
+            pourcent_mbappe: function () {
+                return (100 * this.nbVotes_mbappe / this.nbVotes_total).toFixed(2)
+            },
+            pourcent_fekir: function () {
+                return (100 * this.nbVotes_fekir / this.nbVotes_total).toFixed(2)
+            },
+            pourcent_thauvin: function () {
+                return (100 * this.nbVotes_thauvin / this.nbVotes_total).toFixed(2)
             }
         },
     });
