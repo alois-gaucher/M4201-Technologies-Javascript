@@ -72,7 +72,7 @@
                checked>
         <label for="firstname">Firstname</label>
 
-        <input v-model="firstname" type="checkbox" id="lastname" name="lastname"
+        <input v-model="lastname" type="checkbox" id="lastname" name="lastname"
                checked>
         <label for="lastname">Lastname</label>
 
@@ -88,6 +88,42 @@
         <input v-model="tel" type="checkbox" id="tel" name="tel">
         <label for="tel">Tel.</label>
     </div>
+
+    <hr>
+
+    <p>Add new person:</p>
+
+    <div>
+        <form style="width: 100%">
+            <label for="gender">Gender</label>
+            <select v-model="saisie_gender" name="gender" type="select">
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+            </select>
+
+            <label v-model="saisie_firstname" for="firstname">Firstname</label>
+            <input name="firstname" type="text">
+
+            <label for="lastname">Lastname</label>
+            <input name="lastname" type="text">
+
+            <label for="age">Age</label>
+            <input name="age" type="text">
+
+            <label for="adr">Address</label>
+            <input name="adr" type="address">
+
+            <label for="email">E-mail</label>
+            <input name="email" type="email">
+
+            <label for="tel">Tel.</label>
+            <input name="tel" type="tel">
+
+            <button @click="addNewPerson">Add to list</button>
+        </form>
+    </div>
+
+    <hr>
 
     <table style="width:100%">
         <tr>
@@ -121,6 +157,13 @@
             adr: false,
             email: false,
             tel: false,
+            saisie_gender: '',
+            saisie_firstname: '',
+            saisie_lastname: '',
+            saisie_age: '',
+            saisie_adr: '',
+            saisie_email: '',
+            saisie_tel: '',
             persons: [{
                 "index": 0,
                 "tel": "+1 (851) 523-3425",
@@ -851,6 +894,20 @@
                 "adr": "758 Cobek Court, Blanford, Colorado, 7774",
                 "email": "juliettemayo@multron.com"
             }]
+        },
+        methods: {
+            addNewPerson: function () {
+                this.persons.push({
+                    "index": 1000,
+                    "tel": this.saisie_tel,
+                    "firstname": this.saisie_firstname,
+                    "lastname": this.saisie_lastname,
+                    "age": this.saisie_age,
+                    "gender": this.saisie_gender,
+                    "adr": this.saisie_adr,
+                    "email": this.saisie_email
+                })
+            }
         },
         computed: {
             nbPersons: function () {
