@@ -101,23 +101,23 @@
                 <option value="male">Male</option>
             </select>
 
-            <label v-model="saisie_firstname" for="firstname">Firstname</label>
-            <input name="firstname" type="text">
+            <label for="firstname">Firstname</label>
+            <input v-model="saisie_firstname" name="firstname" type="text">
 
             <label for="lastname">Lastname</label>
-            <input name="lastname" type="text">
+            <input v-model="saisie_lastname" name="lastname" type="text">
 
             <label for="age">Age</label>
-            <input name="age" type="text">
+            <input v-model="saisie_age" name="age" type="text">
 
             <label for="adr">Address</label>
-            <input name="adr" type="address">
+            <input v-model="saisie_adr" name="adr" type="address">
 
             <label for="email">E-mail</label>
-            <input name="email" type="email">
+            <input v-model="saisie_email" name="email" type="email">
 
             <label for="tel">Tel.</label>
-            <input name="tel" type="tel">
+            <input v-model="saisie_tel" name="tel" type="tel">
 
             <button @click="addNewPerson">Add to list</button>
         </form>
