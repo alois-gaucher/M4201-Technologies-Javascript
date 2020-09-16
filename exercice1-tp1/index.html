@@ -61,20 +61,66 @@
         There are {{ nbPersons }} persons in the list, the mean age is {{ moyenneAge }} years old.
     </p>
     <hr>
-    <table border="1px">
-        <tbody>
+    <p>Choose info to display:</p>
+
+    <div>
+        <input v-model="gender" type="checkbox" id="gender" name="gender"
+               checked>
+        <label for="gender">Gender</label>
+
+        <input v-model="firstname" type="checkbox" id="firstname" name="firstname"
+               checked>
+        <label for="firstname">Firstname</label>
+
+        <input v-model="firstname" type="checkbox" id="lastname" name="lastname"
+               checked>
+        <label for="lastname">Lastname</label>
+
+        <input v-model="age" type="checkbox" id="age" name="age">
+        <label for="lastname">Age</label>
+
+        <input v-model="adr" type="checkbox" id="adr" name="adr">
+        <label for="adr">Address</label>
+
+        <input v-model="email" type="checkbox" id="email" name="email">
+        <label for="email">E-mail</label>
+
+        <input v-model="tel" type="checkbox" id="tel" name="tel">
+        <label for="tel">Tel.</label>
+    </div>
+
+    <table style="width:100%">
         <tr>
             <th>Gender</th>
             <th>Firstname</th>
             <th>Lastname</th>
+            <th v-if="age">Age</th>
+            <th v-if="adr">Address</th>
+            <th v-if="email">E-mail</th>
+            <th v-if="tel">Tel</th>
         </tr>
-        </tbody>
+        <tr v-for="person in persons">
+            <td>
+                <span v-if="person.gender == 'female'">Ms. </span>
+                <span v-else="person.gender == 'male'">Mr. </span>
+            </td>
+            <td>{{ person.firstname }}</td>
+            <td>{{ person.lastname }}</td>
+            <td v-if="age">{{ person.age }}</td>
+            <td v-if="adr">{{ person.adr }}</td>
+            <td v-if="email"><a href="mailto:{{ person.email }}">{{ person.email }}</a></td>
+            <td v-if="tel"><a href="tel:{{ person.tel }}">{{ person.tel }}</a></td>
+        </tr>
     </table>
 </div>
 <script>
     var vue1 = new Vue({
         el: "#app",
         data: {
+            age: false,
+            adr: false,
+            email: false,
+            tel: false,
             persons: [{
                 "index": 0,
                 "tel": "+1 (851) 523-3425",
