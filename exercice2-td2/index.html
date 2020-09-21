@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-resource"></script>
     <style>img.chromoji {
@@ -17,8 +17,22 @@
 <h1>List of contacts</h1>
 <div id="app">
     <h3>{{ message }}</h3>
-    <ul>
-        {{ contacts }}
+    <p>
+        There are {{ nbPersons }} persons in the list, the mean age is {{ moyenneAge }} years old.
+    </p>
+    <p>
+        There are {{ hommes }} males.
+    </p>
+    <p>
+        There are {{ femmes }} females.
+    </p>
+    <ul v-for="contact in contacts">
+        <li>
+            <img alt="" v-bind:src="contact.picture">
+            <span v-if="contact.gender == 'female'">Ms. </span>
+            <span v-else="contact.gender == 'male'">Mr. </span>
+            {{ contact.fname }} {{ contact.lname }}, {{ contact.age }}
+        </li>
     </ul>
 </div>
 <script>
@@ -27,8 +41,8 @@
         data: {
             contacts: "",
             message: "Waiting...",
-        },
-        methods: {
+            hommes: 0,
+            femmes: 0,
         },
         created: function () {
             this.message = "Loading..."
@@ -41,6 +55,30 @@
                     console.log(response)
                 });
             this.message = "Finished!"
+        },
+        computed: {
+            nbPersons: function () {
+                return (this.contacts).length
+            },
+
+            moyenneAge: function () {
+                sum = 0;
+                this.contacts.forEach(function (element) {
+                    sum += element.age;
+                });
+                return (sum / this.nbPersons).toFixed(2);
+            },
+
+            nbHommesFemmes: function () {
+                this.contacts.forEach(function (element) {
+                    if (this.element.gender === 'male') {
+                        this.hommes ++
+                    }
+                    else if (this.element.gender === 'female') {
+                        this.femmes ++
+                    }
+                })
+            }
         }
     })
 </script>
