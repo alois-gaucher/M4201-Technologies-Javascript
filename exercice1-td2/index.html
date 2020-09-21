@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource"></script>
+    <style>img.chromoji {
+        width: 1.2em !important;
+        height: 1.2em !important;
+    }
+
+    .chromoji-font, #chromoji-font {
+        font-size: 1.2em !important;
+    }</style>
+</head>
+<body style="margin:0px;font-family:sans-serif;">
+<h1>List of contacts</h1>
+<div id="app">
+    <p>Data:
+        <button v-on:click="loader">Load</button>
+    </p>
+    <h3>{{ message }}</h3>
+    <ul>
+        {{ contacts }}
+    </ul>
+</div>
+<script>
+    var vue1 = new Vue({
+        el: "#app",
+        data: {
+            contacts: "",
+            message: "Waiting...",
+        },
+        methods: {
+            loader: function () {
+                this.message = "Loading..."
+                this.$http.get('https://api.myjson.com/bins/udcv5')
+                    .then(response => {
+                        this.contacts = response.body // en cas de succès
+                        console.log(response)
+                    }, response => {
+                        this.message = "Error!" // en cas d'échec
+                        console.log(response)
+                    });
+                this.message = "Finished!"
+            },
+        }
+    })
+</script>
+
+
+</body>
+</html>
