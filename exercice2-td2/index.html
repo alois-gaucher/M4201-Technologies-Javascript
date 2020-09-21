@@ -21,10 +21,10 @@
         There are {{ nbPersons }} persons in the list, the mean age is {{ moyenneAge }} years old.
     </p>
     <p>
-        There are {{ hommes }} males.
+        There are {{ nbHommes }} males.
     </p>
     <p>
-        There are {{ femmes }} females.
+        There are {{ nbFemmes }} females.
     </p>
     <ul v-for="contact in contacts">
         <li>
@@ -39,7 +39,7 @@
     var vue1 = new Vue({
         el: "#app",
         data: {
-            contacts: "",
+            contacts: [],
             message: "Waiting...",
             hommes: 0,
             femmes: 0,
@@ -69,17 +69,28 @@
                 return (sum / this.nbPersons).toFixed(2);
             },
 
-            nbHommesFemmes: function () {
-                this.contacts.forEach(function (element) {
-                    if (this.element.gender === 'male') {
-                        this.hommes ++
-                    }
-                    else if (this.element.gender === 'female') {
-                        this.femmes ++
-                    }
-                })
-            }
-        }
+            nbHommes: function () {
+                nb = 0
+                this.contacts.forEach(
+                    function (element) {
+                        if (element.gender === 'male') {
+                            nb++
+                        }
+                    })
+                return nb;
+            },
+
+            nbFemmes: function () {
+                nb = 0
+                this.contacts.forEach(
+                    function (element) {
+                        if (element.gender === 'female') {
+                            nb++
+                        }
+                    })
+                return nb;
+            },
+        },
     })
 </script>
 
