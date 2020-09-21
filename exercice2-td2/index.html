@@ -16,9 +16,6 @@
 <body style="margin:0px;font-family:sans-serif;">
 <h1>List of contacts</h1>
 <div id="app">
-    <p>Data:
-        <button v-on:click="loader">Load</button>
-    </p>
     <h3>{{ message }}</h3>
     <ul>
         {{ contacts }}
@@ -32,18 +29,18 @@
             message: "Waiting...",
         },
         methods: {
-            loader: function () {
-                this.message = "Loading..."
-                this.$http.get('data1.json')
-                    .then(response => {
-                        this.contacts = response.body // en cas de succès
-                        console.log(response)
-                    }, response => {
-                        this.message = "Error!" // en cas d'échec
-                        console.log(response)
-                    });
-                this.message = "Finished!"
-            },
+        },
+        created: function () {
+            this.message = "Loading..."
+            this.$http.get('data1.json')
+                .then(response => {
+                    this.contacts = response.body // en cas de succès
+                    console.log(response)
+                }, response => {
+                    this.message = "Error!" // en cas d'échec
+                    console.log(response)
+                });
+            this.message = "Finished!"
         }
     })
 </script>
