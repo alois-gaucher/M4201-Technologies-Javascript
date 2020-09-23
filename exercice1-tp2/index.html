@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="../assets/js/vue@2.6.12.js"></script>
+    <link id="jsrunning" rel="ebpgklajhmppeobdbgnmdicladcjgakk">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family:sans-serif;font-size:24px;">
+<div id="app">
+    <div class="container text-center m-auto pt-3">
+        <h1>TODO List:</h1>
+        <div class="container">
+            <label for="tache">Task to add</label>
+            <input class="form-control mb-4" v-model="saisie_tache" name="tache" type="text">
+
+            <button class="btn btn-info btn-block my-4" @click="addTache">Add to list</button>
+            <button class="btn btn-info btn-block my-4" @click="clearList">Clear the list</button>
+        </div>
+        <ul v-for="(tache, index) in todoList" class="list-unstyled text-left">
+            <li>{{ tache.index }} &dash; {{ tache.tâche }}</li>
+            <input class="custom-control-input" type="checkbox" id="{{tache.index}}">
+            <button @click="removeTache(index)" type="button" class="btn btn-danger px-3"><i class="fas fa-trash"
+                                                                                             aria-hidden="true"></i>
+            </button>
+        </ul>
+    </div>
+</div>
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+<script>
+    var vue1 = new Vue({
+        el: "#app",
+        data: {
+            saisie_tache: '',
+            todoList: [{
+                "index": 1,
+                "done": false,
+                "tâche": "Trouver une entreprise"
+            }, {
+                "index": 2,
+                "done": false,
+                "tâche": "Apprendre PHP"
+            }, {
+                "index": 3,
+                "done": false,
+                "tâche": "Apprendre Vue.js"
+            },
+            ]
+        },
+        computed: {},
+        methods: {
+            addTache: function () {
+                if (this.saisie_tache != "") {
+                    this.todoList.push({
+                        "index": this.todoList.length + 1,
+                        "done": false,
+                        "tâche": this.saisie_tache
+                    })
+                }
+            },
+            clearList: function () {
+                this.todoList = [];
+            },
+            removeTache: function (index) {
+                this.$delete(this.todoList, index)
+            },
+            doneTache: function (index) {
+                if (this.todoList.done === true) {
+                    this.todoList.done = false;
+                }
+            }
+        },
+    });
+</script>
+</body>
+</html>
