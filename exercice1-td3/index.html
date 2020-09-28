@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)http://149.91.83.164/lectio/code/m4201/td03/td3_1.html#/ -->
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-router"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0px;
+            font-size: 24px;
+        }
+
+        header {
+            position: absolute;
+            top: 0px;
+            width: 100%;
+            height: 36px;
+            text-align: center;
+            background-color: #ccc;
+            padding-top: 4px;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+            height: 36px;
+            text-align: center;
+            background-color: #ccc;
+            padding-top: 4px;
+        }
+
+        #content {
+            padding-top: 30px;
+            height: 2000px;
+        }
+
+        #content > div {
+            margin: 40px 30px 20px 30px;
+        }
+
+        .lowC {
+            background-color: #ccc;
+            color: #000;
+        }
+
+        .highC {
+            background-color: #000;
+            color: #ccc;
+        }
+
+    </style>
+    <style>img.chromoji {
+        width: 1.2em !important;
+        height: 1.2em !important;
+    }
+
+    .chromoji-font, #chromoji-font {
+        font-size: 1.2em !important;
+    }</style>
+</head>
+<body>
+<div id="app">
+    <header>
+        <router-link to="/">Home</router-link>
+        -
+        <router-link to="/events">Events</router-link>
+        -
+        <router-link to="/information">Information</router-link>
+        -
+        <router-link to="/contact">Contact</router-link>
+        &nbsp;
+        <button>-</button>
+        aA
+        <button>+</button>
+        <input type="checkbox">☯
+    </header>
+    <div id="content">
+        <router-view></router-view>
+    </div>
+    <footer>
+        © JL - IUT de Troyes
+    </footer>
+</div>
+<!-- fin corps HTML -->
+<script>
+    const homeTemplate = {
+        template: "\
+			<div>\
+				<h1>Home</h1>\
+				<p>Welcome on my site!</p>\
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam a tincidunt purus. Quisque ac luctus sapien. Quisque eleifend in nulla tincidunt suscipit.\
+				In euismod et lorem in posuere. Donec vulputate tortor quis sapien condimentum convallis. Donec pulvinar eget massa vel consectetur. Sed cursus rhoncus \
+				ornare. Nulla vulputate malesuada gravida. Sed eget ipsum ac elit tincidunt posuere non a nulla.</p>\
+			</div>"
+    };
+
+    const eventsTemplate = {template: "<div><h1>Events</h1><p>Shortcoming events...</p></div>"};
+    const informationTemplate = {template: "<div><h1>Information</h1><p>A list of many useful information...</p></div>"};
+
+    const contactTemplate = {
+        template: '\
+			<div>\
+				<h1>Contact</h1>\
+				<p>Contact us...</p>\
+				<p>\
+					<form>\
+						Name: <input type="text" name="name" placeholder="Your name..."/><br />\
+						E-mail: <input type="email" name="email"  placeholder="Your e-mail..."/><br />\
+						Message: <textarea name="message" placeholder="Your message..."></textarea><br />\
+						<input type="submit" value="Send" />\
+					</form>\
+				</p>\
+			</div>'
+    };
+
+    // smiley template
+    const componentSmiley = {
+        template: '<h1>😀</h1>'
+    };
+
+    const myTitle = {
+        template: '<h1>Welcome</h1>'
+    }
+
+    const myDate = {
+        template: 'formatted_date'
+    }
+
+    var routes = [
+            {path: "/", component: homeTemplate},
+            {path: "/infos", component: informationTemplate},
+            {path: "/contact", component: contactTemplate},
+            {path: "/events", component: eventsTemplate},
+            {path: "*", redirect: "/"}
+        ]
+    ;
+
+    var router = new VueRouter({
+        routes // shorthand for `routes: routes`
+    });
+
+    var app = new Vue({
+        el: "#app",
+        router,
+        data: {
+            highContrast: false,
+            size: 14
+        },
+        components: {
+            "my-smiley": componentSmiley
+        },
+    });
+</script>
+<!-- fin HTML -->
+</body>
+</html>

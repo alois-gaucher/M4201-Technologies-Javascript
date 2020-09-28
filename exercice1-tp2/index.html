@@ -21,72 +21,84 @@
         <div class="container">
             <label for="tache">Task to add</label>
             <input class="form-control mb-4" v-model="saisie_tache" name="tache" type="text">
-
-            <button class="btn btn-info btn-block my-4" @click="addTache">Add to list</button>
+            <span v-if="saisie_tache != '' ">
+                <button class="btn btn-info btn-block my-4" @click="addTache">Add to list</button>
+            </span>
             <button class="btn btn-info btn-block my-4" @click="clearList">Clear the list</button>
+
+            <div v-for="(tache, index) in todoList" class="text-center align-center form-group">
+                <div class="row form-group mb-4">
+                    <div class="col">
+                        <div class="md-form input-group form-group">
+                            <input class="form-control mb-4" v-model="tache.tâche" name="tache" type="text">
+                            <button @click="removeTache(index)" type="button"
+                                    class="btn btn-danger mx-3 input-group-addon">
+                                <i
+                                        class="fas fa-trash"
+                                ></i>
+                            </button>
+                            <input class="mx-3" type="checkbox" id="checkbox" v-model="tache.done">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <ul v-for="(tache, index) in todoList" class="list-unstyled text-left">
-            <li>{{ tache.index }} &dash; {{ tache.tâche }}</li>
-            <input class="custom-control-input" type="checkbox" id="{{tache.index}}">
-            <button @click="removeTache(index)" type="button" class="btn btn-danger px-3"><i class="fas fa-trash"
-                                                                                             aria-hidden="true"></i>
-            </button>
-        </ul>
-    </div>
-</div>
-<!-- JQuery -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- Bootstrap tooltips -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-<!-- Bootstrap core JavaScript -->
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<!-- MDB core JavaScript -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
-<script>
-    var vue1 = new Vue({
-        el: "#app",
-        data: {
-            saisie_tache: '',
-            todoList: [{
-                "index": 1,
-                "done": false,
-                "tâche": "Trouver une entreprise"
-            }, {
-                "index": 2,
-                "done": false,
-                "tâche": "Apprendre PHP"
-            }, {
-                "index": 3,
-                "done": false,
-                "tâche": "Apprendre Vue.js"
-            },
-            ]
-        },
-        computed: {},
-        methods: {
-            addTache: function () {
-                if (this.saisie_tache != "") {
-                    this.todoList.push({
-                        "index": this.todoList.length + 1,
+        <!-- JQuery -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+        <script>
+            var vue1 = new Vue({
+                el: "#app",
+                data: {
+                    saisie_tache: '',
+                    todoList: [{
+                        "index": 1,
                         "done": false,
-                        "tâche": this.saisie_tache
-                    })
-                }
-            },
-            clearList: function () {
-                this.todoList = [];
-            },
-            removeTache: function (index) {
-                this.$delete(this.todoList, index)
-            },
-            doneTache: function (index) {
-                if (this.todoList.done === true) {
-                    this.todoList.done = false;
-                }
-            }
-        },
-    });
-</script>
+                        "tâche": "Trouver une entreprise"
+                    }, {
+                        "index": 2,
+                        "done": true,
+                        "tâche": "Apprendre PHP"
+                    }, {
+                        "index": 3,
+                        "done": false,
+                        "tâche": "Apprendre Vue.js"
+                    },
+                    ]
+                },
+                computed: {},
+                methods: {
+                    addTache: function () {
+                        if (this.saisie_tache != "") {
+                            this.todoList.push({
+                                // Pas la meilleure manière de faire pour récupérer l'index
+                                "index": this.todoList.length + 1,
+                                "done": false,
+                                "tâche": this.saisie_tache
+                            })
+                        }
+                    },
+                    clearList: function () {
+                        this.todoList = [];
+                    },
+                    removeTache: function (index) {
+                        this.$delete(this.todoList, index)
+                    },
+                    doneTache: function (index) {
+                        if (this.todoList.done === true) {
+                            this.todoList.done = false;
+                        }
+                    }
+                },
+            });
+        </script>
 </body>
 </html>
