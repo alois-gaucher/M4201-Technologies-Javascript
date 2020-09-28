@@ -43,7 +43,7 @@
         }
 
         .lowC {
-            background-color: #ccc;
+            background-color: #fff;
             color: #000;
         }
 
@@ -69,20 +69,20 @@
         -
         <router-link to="/events">Events</router-link>
         -
-        <router-link to="/information">Information</router-link>
+        <router-link to="/infos">Information</router-link>
         -
         <router-link to="/contact">Contact</router-link>
         &nbsp;
-        <button>-</button>
+        <button v-if="this.size>8" @click="this.textMinus">-</button>
         aA
-        <button>+</button>
-        <input type="checkbox">☯
+        <button v-if="this.size<32" @click="this.textPlus">+</button>
+        <input v-model="highContrast" type="checkbox">☯
     </header>
-    <div id="content">
+    <div id="content" v-bind:style="this.styleSize" v-bind:class="{lowC: !highContrast, highC: highContrast}">
         <router-view></router-view>
     </div>
     <footer>
-        © JL - IUT de Troyes
+        Taille: {{this.size}} &dash; High Contrast: {{this.highContrast}} &dash; <mySmiley><mySmiley>
     </footer>
 </div>
 <!-- fin corps HTML -->
@@ -118,7 +118,7 @@
     };
 
     // smiley template
-    const componentSmiley = {
+    var mySmiley = {
         template: '<h1>😀</h1>'
     };
 
@@ -131,17 +131,21 @@
     }
 
     var routes = [
-            {path: "/", component: homeTemplate},
-            {path: "/infos", component: informationTemplate},
-            {path: "/contact", component: contactTemplate},
-            {path: "/events", component: eventsTemplate},
-            {path: "*", redirect: "/"}
-        ]
-    ;
+        {path: "/", component: homeTemplate},
+        {path: "/infos", component: informationTemplate},
+        {path: "/contact", component: contactTemplate},
+        {path: "/events", component: eventsTemplate},
+        {path: "*", redirect: "/"}
+    ];
 
     var router = new VueRouter({
         routes // shorthand for `routes: routes`
     });
+
+    // for ANY vue declared in the page
+    Vue.component('mySmiley', // ou 'mySmiley'
+        {template:mySmiley}
+    );
 
     var app = new Vue({
         el: "#app",
@@ -150,9 +154,19 @@
             highContrast: false,
             size: 14
         },
-        components: {
-            "my-smiley": componentSmiley
+        methods: {
+            textPlus: function () {
+                this.size ++
+            },
+            textMinus: function () {
+                this.size --
+            }
         },
+        computed: {
+            styleSize: function() {
+                return {"font-size":this.size+"px"}
+            }
+        }
     });
 </script>
 <!-- fin HTML -->
