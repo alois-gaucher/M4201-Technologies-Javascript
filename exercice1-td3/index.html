@@ -2,7 +2,7 @@
 <!-- saved from url=(0056)http://149.91.83.164/lectio/code/m4201/td03/td3_1.html#/ -->
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue-router"></script>
@@ -73,16 +73,17 @@
         -
         <router-link to="/contact">Contact</router-link>
         &nbsp;
-        <button v-if="this.size>8" @click="this.textMinus">-</button>
+        <button @click="this.textMinus" v-if="this.size>8">-</button>
         aA
-        <button v-if="this.size<32" @click="this.textPlus">+</button>
-        <input v-model="highContrast" type="checkbox">☯
+        <button @click="this.textPlus" v-if="this.size<32">+</button>
+        <input type="checkbox" v-model="highContrast">☯
     </header>
-    <div id="content" v-bind:style="this.styleSize" v-bind:class="{lowC: !highContrast, highC: highContrast}">
+    <div id="content" v-bind:class="{lowC: !highContrast, highC: highContrast}" v-bind:style="this.styleSize">
         <router-view></router-view>
+        <my-article date="27/09/2020" text="Nous sommes dimanche !"></my-article>
     </div>
     <footer>
-        Taille: {{this.size}} &dash; High Contrast: {{this.highContrast}} &dash; <mySmiley><mySmiley>
+        Taille: {{this.size}} &dash; High Contrast: {{this.highContrast}}
     </footer>
 </div>
 <!-- fin corps HTML -->
@@ -98,8 +99,13 @@
 			</div>"
     };
 
-    const eventsTemplate = {template: "<div><h1>Events</h1><p>Shortcoming events...</p></div>"};
-    const informationTemplate = {template: "<div><h1>Information</h1><p>A list of many useful information...</p></div>"};
+    const eventsTemplate = {template: "<div>\<" +
+            "h1>Events</h1>\<p>Shortcoming events...</p></div>"};
+    const informationTemplate = {template: "\<" +
+            "div>\<" +
+            "h1>Information</h1>\<" +
+            "p>A list of many useful information...</p>\<" +
+            "/div>"};
 
     const contactTemplate = {
         template: '\
@@ -117,10 +123,21 @@
 			</div>'
     };
 
+    // article
+    var componentArticle = {
+        props: [ 'date', 'text' ],
+        template: '<div class="article"><h6>Date: {{date}}</h6><p>{{text}}</p></div>'
+    };
+
     // smiley template
     var mySmiley = {
         template: '<h1>😀</h1>'
     };
+
+     // for ANY vue declared in the page
+    Vue.component('mySmiley', // ou 'mySmiley'
+        {template: mySmiley}
+    );
 
     const myTitle = {
         template: '<h1>Welcome</h1>'
@@ -142,11 +159,6 @@
         routes // shorthand for `routes: routes`
     });
 
-    // for ANY vue declared in the page
-    Vue.component('mySmiley', // ou 'mySmiley'
-        {template:mySmiley}
-    );
-
     var app = new Vue({
         el: "#app",
         router,
@@ -156,15 +168,19 @@
         },
         methods: {
             textPlus: function () {
-                this.size ++
+                this.size++
             },
             textMinus: function () {
-                this.size --
+                this.size--
             }
         },
+        components: {
+            mySmiley: mySmiley,
+            "my-article": componentArticle
+        },
         computed: {
-            styleSize: function() {
-                return {"font-size":this.size+"px"}
+            styleSize: function () {
+                return {"font-size": this.size + "px"}
             }
         }
     });
