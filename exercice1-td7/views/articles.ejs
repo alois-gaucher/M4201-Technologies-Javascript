@@ -11,7 +11,10 @@
     <h1>{{ title }}</h1>
     <ul>
         <li v-for="item in listArticles">
-            {{item.art_descript}} - {{item.art_design}}
+            Nom : {{item.art_descript}}
+            Code produit : {{item.art_design}}
+            Prix : {{item.art_prix}}
+            Quantité restante : {{item.art_qte}}
         </li>
     </ul>
 </div>
