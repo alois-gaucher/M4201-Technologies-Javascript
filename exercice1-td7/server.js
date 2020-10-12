@@ -1,9 +1,29 @@
-var http=require('http');
-var express=require('express');
+var http = require('http');
+var express = require('express');
+var mysql = require('mysql');
 
-var port=45678;
+/* Définition du port */
+var port = 45678;
 
-var app=express();
+/* Connexion à la base de données */
+var connect1 = mysql.createConnection({
+    "host": "localhost",
+    "user": "",
+    "password": "",
+    "database": "techno-js",
+    "port": "3306"
+});
+
+/* Tentative de connexion à la base de données */
+connect1.connect(function (error) {
+    if (error) {
+        console.log("Problem with MySQL : " + error);
+    } else {
+        console.log("Connection to database OK...");
+    }
+});
+
+var app = express();
 
 /* Import de ejs */
 app.set('view engine', 'ejs');
@@ -11,16 +31,23 @@ app.set('view engine', 'ejs');
 /* Prise en compte du dossier assets comme dossier statique */
 app.use('/assets', express.static('assets'));
 
-/* Route / */
+/* Routes */
 app.get('/', function (req, res) {
-  res.render('index');
-});
+    res.render('index');
+})
 
-/* Route /articlesList */
-app.get('/articlesList', function (req, res) {
-  res.render('index');
-});
+    .get('/articlesList', function (req, res) {
+        connect1.query("SELECT * FROM articles",
+            function (error, rows) {
+                if (error) {
+                    console.log("Problem with MySQL : " + error);
+                    connect1.end();
+                } else {
+                    res.end(JSON.stringify(rows));
+                }
+            });
+    });
 
 app.listen(port, function () {
-  console.log("Listening on port "+port);
+    console.log("Listening on port " + port);
 });
