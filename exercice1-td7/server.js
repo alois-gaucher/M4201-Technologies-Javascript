@@ -34,6 +34,7 @@ app.use('/assets', express.static('assets'));
 /* Routes */
 app.get('/', function (req, res) {
     res.render('index');
+    console.log("index page loaded")
 })
 
     .get('/articlesList', function (req, res) {
@@ -44,6 +45,7 @@ app.get('/', function (req, res) {
                     connect1.end();
                 } else {
                     res.end(JSON.stringify(rows));
+                    console.log("articlesList page loaded")
                 }
             });
     });
