@@ -48,8 +48,12 @@ app.get('/', function (req, res) {
                     console.log("articlesList page loaded")
                 }
             });
+    })
+    .get('/articles', function (req, res) {
+        res.render('articles');
+        console.log("articles page loaded")
     });
 
-app.listen(port, function () {
-    console.log("Listening on port " + port);
-});
+        app.listen(port, function () {
+            console.log("Listening on port " + port);
+        });
