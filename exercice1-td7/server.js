@@ -8,7 +8,7 @@ var port = 45678;
 /* Connexion à la base de données */
 var connect1 = mysql.createConnection({
     "host": "localhost",
-    "user": "",
+    "user": "root",
     "password": "",
     "database": "techno-js",
     "port": "3306"
