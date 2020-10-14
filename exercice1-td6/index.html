@@ -68,11 +68,14 @@
         crossorigin="anonymous"></script>
 <script>
     $("#envoyer_message").click(function () {
+        /* Envoie le message à tous les utilisateurs */
         socketio.emit('clientVersServeur', {pseudo: $('#pseudo').val(), message: $('#message').val()});
     });
 
     socketio.on('somebodyTalks', function (recup) {
+        /* Log le message */
         console.log(recup);
+        /* Ajoute le contenu du message à la page */
         $("#messages").prepend('<li class="list-group-item">' + recup.pseudo + ' dit : ' + recup.message + '</li>');
     })
 </script>
