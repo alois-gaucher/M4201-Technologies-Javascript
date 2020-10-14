@@ -29,12 +29,6 @@
         <div class="col my-3">
             <h1>Tchat &dash; Socket.io</h1>
 
-            <div class="row g-3 py-3">
-                <ul class="list-group" id="messages">
-                    <li class="list-group-item"></li>
-                </ul>
-            </div>
-
             <form class="row g-3">
                 <div class="form-outline">
                     <input class="form-control" id="pseudo" type="text"/>
@@ -46,6 +40,14 @@
                 </div>
                 <button class="btn btn-dark" id="envoyer_message" type="button">Envoyer</button>
             </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="row g-3 py-3">
+                <ul class="list-group" id="messages">
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -69,9 +71,9 @@
         socketio.emit('clientVersServeur', {pseudo: $('#pseudo').val(), message: $('#message').val()});
     });
 
-    socketio.on('somebodyTalks', function(recup) {
+    socketio.on('somebodyTalks', function (recup) {
         console.log(recup);
-        $("#messages").append('<li class="list-group-item">'+ recup.pseudo + ' : '+ recup.message + '</li>');
+        $("#messages").prepend('<li class="list-group-item">' + recup.pseudo + ' dit : ' + recup.message + '</li>');
     })
 </script>
 </body>
