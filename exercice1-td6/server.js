@@ -6,8 +6,9 @@ console.log("Server listening on " + port);
 var socketio = require("socket.io").listen(port);
 
 socketio.sockets.on("connection", function (client) {
-    /* Récupération des infos du client */
-    var address = socketio.handshake.address;
     /* Log des infos du client */
-    console.log('New connection from ' + address.address + ':' + address.port);
+    socketio.on('connection', function (socket) {
+        const address = socket.request.headers.referer;
+        console.log('New connection from : ' + address);
+    });
 });
