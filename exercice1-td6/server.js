@@ -11,4 +11,10 @@ socketio.sockets.on("connection", function (client) {
         const address = socket.request.headers.referer;
         console.log('New connection from : ' + address);
     });
+
+    /* Récupération du message du client */
+    client.on("clientVersServeur", function (recup) {
+        console.log(recup);
+        socketio.sockets.emit("somebodyTalks", recup)
+    });
 });

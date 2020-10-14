@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Tchat &dash; Socket.io</title>
     <script src="node_modules/socket.io-client/dist/socket.io.slim.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
 
     <!-- CSS -->
     <!-- Font Awesome -->
@@ -23,16 +24,27 @@
     />
 </head>
 <body>
-<div class="container">
+<div class="container" id="app">
     <div class="row">
         <div class="col my-3">
             <h1>Tchat &dash; Socket.io</h1>
 
+            <div class="row g-3 py-3">
+                <ul class="list-group" id="messages">
+                    <li class="list-group-item"></li>
+                </ul>
+            </div>
+
             <form class="row g-3">
+                <div class="form-outline">
+                    <input class="form-control" id="pseudo" type="text"/>
+                    <label class="form-label" for="pseudo">Pseudo</label>
+                </div>
                 <div class="form-outline">
                     <textarea class="form-control" id="message" rows="4"></textarea>
                     <label class="form-label" for="message">Message</label>
                 </div>
+                <button class="btn btn-dark" id="envoyer_message" type="button">Envoyer</button>
             </form>
         </div>
     </div>
@@ -41,11 +53,26 @@
 <!-- JS -->
 <!-- MDB -->
 <script
-        type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/1.0.0/mdb.min.js"
+        type="text/javascript"
 ></script>
+<!-- Socket.io -->
 <script>
     var socketio = io.connect("http://localhost:8080");
+</script>
+<!-- Tchat -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+<script>
+    $("#envoyer_message").click(function () {
+        socketio.emit('clientVersServeur', {pseudo: $('#pseudo').val(), message: $('#message').val()});
+    });
+
+    socketio.on('somebodyTalks', function(recup) {
+        console.log(recup);
+        $("#messages").append('<li class="list-group-item">'+ recup.pseudo + ' : '+ recup.message + '</li>');
+    })
 </script>
 </body>
 </html>
