@@ -1,3 +1,4 @@
 .idea/*
 node_modules/*
+/node_modules/*
 /exercice1-td7/node_modules/
