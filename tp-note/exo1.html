@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+		<meta charset="utf-8" />
+		<style>
+      table, th, td { border:1px solid #000; padding:4px; }
+      img { width:64px; }
+    </style>
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    </head>
+    <body style="font-family: sans-serif;">
+        <div id="contenu">
+    			<h1>Liste des personnes</h1>
+    			<ul v-for="p in personnes">
+    				<li>
+                        <img :src="p.photo" alt="">
+                        {{ p.prenom }} {{ p.nom }}, travaille chez {{ p.employeur }} // e-mail : {{ p.email }}
+                    </li>
+    			</ul>
+        </div>
+        <script>
+            let vue1 = new Vue({
+                el: "#contenu",
+                data: {
+                    personnes: [{"photo":"https://robohash.org/1298.5850","age":52,"prenom":"Theresa","nom":"Huffman","genre":"F","employeur":"MEDALERT","email":"theresahuffman@medalert.com"},{"photo":"https://robohash.org/2166.1026","age":17,"prenom":"Cooley","nom":"West","genre":"H","employeur":"BOVIS","email":"cooleywest@bovis.com"},{"photo":"https://robohash.org/3230.9351","age":59,"prenom":"Keisha","nom":"Kemp","genre":"F","employeur":"TUBESYS","email":"keishakemp@tubesys.com"},{"photo":"https://robohash.org/2582.2602","age":34,"prenom":"Gallagher","nom":"Juarez","genre":"H","employeur":"PROSELY","email":"gallagherjuarez@prosely.com"},{"photo":"https://robohash.org/3424.7167","age":53,"prenom":"Frieda","nom":"Logan","genre":"F","employeur":"AQUASSEUR","email":"friedalogan@aquasseur.com"},{"photo":"https://robohash.org/2832.7410","age":28,"prenom":"Rocha","nom":"Kinney","genre":"H","employeur":"ESCHOIR","email":"rochakinney@eschoir.com"},{"photo":"https://robohash.org/1109.5075","age":19,"prenom":"Fowler","nom":"Clemons","genre":"H","employeur":"SQUISH","email":"fowlerclemons@squish.com"}]
+              }
+          })
+        </script>
+    </body>
+</html>
